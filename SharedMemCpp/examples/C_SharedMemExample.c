@@ -1,13 +1,15 @@
-#include <stdlib.h>
+#include <stdio.h>
+#include <inttypes.h>
 #include <SharedMem.h>
 
 int main(void) {    
-    shared_mem_t* sharedMem = shared_mem_create("Hello-World.txt");
-    printf("SharedMem file %s\n", shared_mem_file_name(sharedMem));
+  shared_mem_t* sharedMem = shared_mem_create("Hello-World.txt");
 
-    // int64_t a = 12;
-    // int64_t b = 6;
-    // int64_t sum = shared_mem_file_name(sharedMem, a, b)
+  const char* fileName = shared_mem_file_name(sharedMem);
+  printf("SharedMem file %s\n", fileName);
 
-    // std::cout << "Sum of " << a << " + " << b << " = " << sum << std::endl;
+  int64_t a = 12;
+  int64_t b = 6;
+  int64_t sum = shared_mem_sum(sharedMem, a, b);
+  printf("Sum of %ld + %ld = %ld\n", (long)a, (long)b, (long)sum);
 }
