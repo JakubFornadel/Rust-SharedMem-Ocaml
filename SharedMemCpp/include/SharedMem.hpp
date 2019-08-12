@@ -3,18 +3,23 @@
 
 #include <string>
 
-namespace SharedMem {
+class SharedMem {
+public:
+  SharedMem(const std::string& fileName);
+  ~SharedMem() = default;
+  
+  /**
+   * @brief Returns a + b
+   **/
+  int64_t sum(int64_t a, int64_t b);
 
-/**
- * @brief Returns a + b
- **/
-int64_t sum(int64_t a, int64_t b);
+  /**
+   * @brief Returns name
+   **/
+  std::string getFileName();
 
-/**
- * @brief std::string "World"
- **/
-std::string hello();
-
-}
+private:
+  std::string fileName_;
+};
 
 #endif //SHARED_MEM_HPP
