@@ -3,11 +3,13 @@
 #include <string>
 
 int main(void) {
-    std::cout << "Hello " << SharedMem::hello() << std::endl;
+    SharedMem sharedMem("Hello-World.txt");
+
+    std::cout << "SharedMem file " << sharedMem.getFileName() << std::endl;
 
     int64_t a = 12;
     int64_t b = 6;
 
-    int64_t sum = SharedMem::sum(a, b);
+    int64_t sum = sharedMem.sum(a, b);
     std::cout << "Sum of " << a << " + " << b << " = " << sum << std::endl;
 }

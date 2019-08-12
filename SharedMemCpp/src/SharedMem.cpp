@@ -1,13 +1,13 @@
 #include <SharedMem.hpp>
 
-namespace SharedMem {
+SharedMem::SharedMem(const std::string& fileName) {
+    fileName_ = fileName;
+}
 
-int64_t sum(int64_t a, int64_t b) {
+int64_t SharedMem::sum(int64_t a, int64_t b) {
     return a + b;
 }
 
-std::string hello() {
-    return "World";
-}
-
+std::string SharedMem::getFileName() {
+    return fileName_;
 }
