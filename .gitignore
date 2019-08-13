@@ -1,2 +1,5 @@
-SharedMemCpp/build/
+sharedMemCpp/build/
+node/build/
+sharedMemRs/target/
+sharedMemRs/Cargo.lock
 .vscode/
