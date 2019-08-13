@@ -20,7 +20,7 @@ cargo build
 
 ## Node Build instructions
 ```Shell 
-mkdir -p node/build
-cd node/build
-rustc ../node.rs
+cd node/
+cargo build
+cargo run
 ```
