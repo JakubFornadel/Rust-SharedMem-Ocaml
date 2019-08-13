@@ -13,6 +13,9 @@ install(TARGETS
    ARCHIVE DESTINATION lib
 )
 
+file(GLOB headers "${CMAKE_CURRENT_SOURCE_DIR}/include/*")
+install(FILES ${headers} DESTINATION include)
+
 
 option(SHAREDMEMCPP_BUILD_EXAMPLES "Build examples." ON)
 if (SHAREDMEMCPP_BUILD_EXAMPLES)
