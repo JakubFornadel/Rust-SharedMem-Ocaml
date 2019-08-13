@@ -4,17 +4,23 @@ Use git to clone the repository.
 git clone https://github.com/JakubFornadel/Rust-SharedMem-Ocaml.git 
 ```
 
-## Node Build instructions
+## SharedMemCpp Build & Install instructions
 ```Shell 
-mkdir -p Node/build
-cd Node/build
-rustc ../node.rs
+mkdir -p sharedMemCpp/build
+cd sharedMemCpp/build
+cmake ../
+sudo make install
 ```
 
-## SharedMemCpp Build instructions
+## SharedMemRs Build instructions
 ```Shell 
-mkdir -p SharedMemCpp/build
-cd SharedMemCpp/build
-cmake ../
-make
+cd sharedMemRs
+cargo build
+```
+
+## Node Build instructions
+```Shell 
+mkdir -p node/build
+cd node/build
+rustc ../node.rs
 ```
