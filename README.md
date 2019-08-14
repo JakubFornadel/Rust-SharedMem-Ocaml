@@ -10,12 +10,17 @@ mkdir -p sharedMemCpp/build
 cd sharedMemCpp/build
 cmake ../
 sudo make install
+// Make symlink so Rust can find this library - TODO: provide Rust directory path ! 
+sudo ln -s /usr/local/lib/libSharedMemCpp.so /usr/lib/libSharedMemCpp.so
 ```
 
 ## SharedMemRs Build instructions
 ```Shell 
 cd sharedMemRs
 cargo build
+
+// To run tests
+cargo test
 ```
 
 ## Node Build instructions
