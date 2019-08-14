@@ -1,5 +1,6 @@
 sharedMemCpp/build/
-node/build/
+node/target/
+node/Cargo.lock
 sharedMemRs/target/
 sharedMemRs/Cargo.lock
 .vscode/
