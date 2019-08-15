@@ -8,5 +8,5 @@ node/Cargo.lock
 sharedMemRs/target/
 sharedMemRs/Cargo.lock
 
-ocamlProtocol/dune-project
-ocamlProtocol/_build/
+protocol/dune-project
+protocol/_build/
