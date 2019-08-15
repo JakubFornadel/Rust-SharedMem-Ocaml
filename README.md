@@ -23,9 +23,40 @@ cargo build
 cargo test
 ```
 
+## SharedMemMl Build instructions
+Ocaml & Dune installation
+```Shell 
+sudo su
+apt-get install ocaml
+apt-get install opam
+opam init
+opam install dune 
+```
+
+SharedMemMl building
+```Shell 
+cd sharedMemRs
+cargo build
+
+// To run tests
+cargo test
+```
+
 ## Node Build instructions
 ```Shell 
 cd node/
 cargo build
 cargo run
 ```
+
+## Ocaml Protocol Build instructions
+```Shell 
+cd ocamlProtocol/
+dune build protocol
+./_build/default/protocol.exe
+
+or
+
+dune exec ./protocol.exe
+```
+

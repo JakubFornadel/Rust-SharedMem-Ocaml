@@ -1,6 +1,12 @@
+.vscode/
+
 sharedMemCpp/build/
+
 node/target/
 node/Cargo.lock
+
 sharedMemRs/target/
 sharedMemRs/Cargo.lock
-.vscode/
+
+ocamlProtocol/dune-project
+ocamlProtocol/_build/
