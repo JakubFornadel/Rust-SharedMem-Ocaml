@@ -35,11 +35,7 @@ opam install dune
 
 SharedMemMl building
 ```Shell 
-cd sharedMemRs
-cargo build
-
-// To run tests
-cargo test
+...
 ```
 
 ## Node Build instructions
@@ -52,6 +48,7 @@ cargo run
 ## Ocaml Protocol Build instructions
 ```Shell 
 cd ocamlProtocol/
+
 dune build protocol
 ./_build/default/protocol.exe
 
