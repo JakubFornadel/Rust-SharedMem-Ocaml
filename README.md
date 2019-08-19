@@ -23,7 +23,7 @@ cargo build
 cargo test
 ```
 
-## SharedMemMl Build instructions
+## SharedMemMl Build instructions 
 Ocaml & Dune installation
 ```Shell 
 sudo su
@@ -35,7 +35,15 @@ opam install dune
 
 SharedMemMl building
 ```Shell 
-...
+cd sharedMemMl
+dune build
+
+// TODO: unable to run sudo dune install and copy library into the /usr/...
+
+// Quick fix:
+dune install --prefix .
+sudo cp -r lib/sharedMem/ /home/fornadel/.opam/default/lib/
+// See for paths https://github.com/ocaml/dune/blob/master/doc/usage.rst#finding-external-libraries - 2. worked for me, after that dune installed-libraries see sharedMem package !
 ```
 
 ## Node Build instructions
@@ -47,13 +55,15 @@ cargo run
 
 ## Ocaml Protocol Build instructions
 ```Shell 
-cd ocamlProtocol/
+cd protocol/
 
-dune build protocol
+dune build protocol.exe
 ./_build/default/protocol.exe
 
 or
 
 dune exec ./protocol.exe
 ```
+
+
 

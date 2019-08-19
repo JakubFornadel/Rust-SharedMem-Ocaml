@@ -2,11 +2,16 @@
 
 sharedMemCpp/build/
 
-node/target/
-node/Cargo.lock
-
 sharedMemRs/target/
 sharedMemRs/Cargo.lock
 
-protocol/dune-project
+sharedMemMl/_build/
+sharedMemMl/lib/
+sharedMemMl/.merlin
+sharedMemMl/sharedMem.install
+
+node/target/
+node/Cargo.lock
+
+protocol/.merlin
 protocol/_build/

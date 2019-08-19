@@ -1,0 +1,3 @@
+(library
+  (name sharedMem)
+  (public_name sharedMem))
