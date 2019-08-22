@@ -9,9 +9,9 @@ git clone https://github.com/JakubFornadel/Rust-SharedMem-Ocaml.git
 mkdir -p sharedMemCpp/build
 cd sharedMemCpp/build
 cmake ../
-sudo make install
+make
 // Make symlink so Rust can find this library - TODO: provide Rust directory path ! 
-sudo ln -s /usr/local/lib/libSharedMemCpp.so /usr/lib/libSharedMemCpp.so
+sudo cp libSharedMemCpp.so /usr/lib/libSharedMemCpp.so
 ```
 
 ## SharedMemRs Build instructions
@@ -36,6 +36,12 @@ opam install dune
 SharedMemMl building
 ```Shell 
 cd sharedMemMl
+./instal.sh // installation script, which consists of:
+
+// Copy cpp library to be linked. See https://dune.readthedocs.io/en/stable/foreign-code.html  
+cp ../sharedMemCpp/build/libSharedMemCpp.a sharedMem/libSharedMemCpp_stubs.a  
+cp ../sharedMemCpp/build/libSharedMemCpp.so sharedMem/dllSharedMemCpp_stubs.so
+
 dune build
 
 // TODO: unable to run sudo dune install and copy library into the /usr/...
@@ -43,6 +49,7 @@ dune build
 // Quick fix:
 dune install --prefix .
 sudo cp -r lib/sharedMem/ /home/fornadel/.opam/default/lib/
+sudo cp -r lib/sharedMem_c/ /home/fornadel/.opam/default/lib/
 // See for paths https://github.com/ocaml/dune/blob/master/doc/usage.rst#finding-external-libraries - 2. worked for me, after that dune installed-libraries see sharedMem package !
 ```
 

@@ -59,3 +59,7 @@ const char* shared_mem_file_name(shared_mem_t *m) {
   obj = static_cast<SharedMem*>(m->obj);
   return obj->getFileName().c_str();
 }
+
+int64_t ext_sum_c(int64_t a, int64_t b) {
+  return ext_sum(a, b);
+}

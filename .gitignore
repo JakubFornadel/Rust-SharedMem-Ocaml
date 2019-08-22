@@ -9,6 +9,7 @@ sharedMemMl/_build/
 sharedMemMl/lib/
 sharedMemMl/.merlin
 sharedMemMl/sharedMem.install
+sharedMemMl/sharedMem/sharedMem_c.install
 
 node/target/
 node/Cargo.lock

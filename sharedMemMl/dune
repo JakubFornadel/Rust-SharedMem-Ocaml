@@ -1,3 +1,6 @@
 (library
   (name sharedMem)
-  (public_name sharedMem))
+  (public_name sharedMem)
+  (preprocess no_preprocessing)
+  (libraries sharedMem_c)
+  (cxx_names stubs))

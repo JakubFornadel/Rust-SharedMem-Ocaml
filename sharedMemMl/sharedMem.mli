@@ -3,3 +3,6 @@ val add : int -> int -> int
 
 val sub : int -> int -> int
 (** [sub x y] returns the result of x - y. *)
+
+val ext_sum : int -> int -> int
+

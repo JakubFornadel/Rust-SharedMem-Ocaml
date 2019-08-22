@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 3.2 )
 add_compile_options("-Wall" "-Werror")
 set( CMAKE_CXX_STANDARD 17 )
 
-add_library(SharedMemCpp SHARED src/SharedMem.cpp src/SharedMemCWrapper.cpp)
+add_library(SharedMemCpp STATIC src/SharedMem.cpp src/SharedMemCWrapper.cpp)
 target_include_directories(SharedMemCpp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 install(TARGETS

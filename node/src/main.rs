@@ -16,6 +16,9 @@ fn main() {
     let calculatedSum = sharedMemRs::shared_mem_sum(sharedMem, a, b);
     println!("Expected result: {} + {} = {}", a, b, expectedSum);
     println!("Library-calculated result: {} + {} = {}", a, b, calculatedSum);
+
+    let ext_calculatedSum = sharedMemRs::ext_sum_c(a, b);
+    println!("Ext Library-calculated result: {} + {} = {}", a, b, ext_calculatedSum);
     
     // Destroys shared memory
     sharedMemRs::shared_mem_destroy(sharedMem)
