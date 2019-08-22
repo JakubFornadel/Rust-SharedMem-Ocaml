@@ -1,0 +1,9 @@
+(lang dune 1.11)
+(name sharedMem_c)
+(authors "Jakub Fornadel")
+
+(package
+ (name sharedMem_c)
+ (synopsis "An OCaml library wrapper for C++ Shared Memory library")
+ (description "A longer description"))	
+
