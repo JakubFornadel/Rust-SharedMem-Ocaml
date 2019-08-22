@@ -11,7 +11,3 @@ int64_t SharedMem::sum(int64_t a, int64_t b) {
 std::string SharedMem::getFileName() {
   return fileName_;
 }
-
-int64_t ext_sum(int64_t a, int64_t b) {
-  return a + b;
-}

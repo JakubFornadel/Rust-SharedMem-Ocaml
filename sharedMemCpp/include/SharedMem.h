@@ -16,7 +16,6 @@ void            shared_mem_destroy(shared_mem_t* m);
 int64_t         shared_mem_sum(shared_mem_t* m, int64_t a, int64_t b);
 const char*     shared_mem_file_name(shared_mem_t *m);
 
-int64_t         ext_sum_c(int64_t a, int64_t b);
 #ifdef __cplusplus
 }
 #endif

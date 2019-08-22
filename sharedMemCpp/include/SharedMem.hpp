@@ -22,6 +22,4 @@ private:
   std::string fileName_;
 };
 
-int64_t ext_sum(int64_t a, int64_t b);
-
 #endif //SHARED_MEM_HPP

@@ -1,8 +1,7 @@
  
-print_string "Hello world!\n"
+print_string "Example of calling C++ library!\n"
 
-let sum = SharedMem.add 1 2;;
-Printf.printf "%d\n" (sum);;
+let sharedMem = SharedMem.shared_mem_create "sharedMemIdentifier";;
 
-let summ = SharedMem.ext_sum 3 5;;
-Printf.printf "%d\n" (summ);;
+let sharedMemSum = SharedMem.shared_mem_sum sharedMem 6 7;;
+Printf.printf "%d\n" (sharedMemSum);;

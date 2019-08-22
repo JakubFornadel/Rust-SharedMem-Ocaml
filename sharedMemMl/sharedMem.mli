@@ -1,8 +1,5 @@
-val add : int -> int -> int
-(** [add x y] returns the result of x + y. *)
-
-val sub : int -> int -> int
-(** [sub x y] returns the result of x - y. *)
-
-val ext_sum : int -> int -> int
+type t
+val shared_mem_create : string -> t 
+val shared_mem_destroy : t -> unit 
+val shared_mem_sum : t -> int -> int -> int
 

@@ -2,11 +2,24 @@ cmake_minimum_required( VERSION 3.2 )
 add_compile_options("-Wall" "-Werror")
 set( CMAKE_CXX_STANDARD 17 )
 
-add_library(SharedMemCpp STATIC src/SharedMem.cpp src/SharedMemCWrapper.cpp)
+add_library(SharedMemCpp SHARED src/SharedMem.cpp src/SharedMemCWrapper.cpp)
 target_include_directories(SharedMemCpp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+add_library(SharedMemCpp_static STATIC src/SharedMem.cpp src/SharedMemCWrapper.cpp)
+target_include_directories(SharedMemCpp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set_target_properties(SharedMemCpp_static PROPERTIES OUTPUT_NAME SharedMemCpp)
+
 
 install(TARGETS
    SharedMemCpp
+
+   RUNTIME DESTINATION bin
+   LIBRARY DESTINATION lib
+   ARCHIVE DESTINATION lib
+)
+
+install(TARGETS
+   SharedMemCpp_static
 
    RUNTIME DESTINATION bin
    LIBRARY DESTINATION lib
@@ -17,7 +30,7 @@ file(GLOB headers "${CMAKE_CURRENT_SOURCE_DIR}/include/*")
 install(FILES ${headers} DESTINATION include)
 
 
-option(SHAREDMEMCPP_BUILD_EXAMPLES "Build examples." ON)
+option(SHAREDMEMCPP_BUILD_EXAMPLES "Build examples." OFF)
 if (SHAREDMEMCPP_BUILD_EXAMPLES)
     # builds C++ example
     add_executable(Cpp_SharedMemExample examples/Cpp_SharedMemExample.cpp)
