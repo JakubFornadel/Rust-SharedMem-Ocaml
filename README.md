@@ -4,6 +4,19 @@ Use git to clone the repository.
 git clone https://github.com/JakubFornadel/Rust-SharedMem-Ocaml.git 
 ```
 
+## Quickstart
+Once the environment is properly installed, run following scripts to update C++ library and its wrappers:
+```Shell 
+cd shareMemCpp/
+./install.sh
+
+cd ../sharedMemRs/
+./install.sh
+
+cd ../sharedMemMl/
+./install.sh
+```
+
 ## SharedMemCpp Build & Install instructions
 ```Shell 
 mkdir -p sharedMemCpp/build
@@ -43,11 +56,9 @@ cd sharedMemMl
 // Copy cpp library to be linked. See https://dune.readthedocs.io/en/stable/foreign-code.html  
 cp ../sharedMemCpp/build/libSharedMemCpp.a sharedMem/libSharedMemCpp_stubs.a  
 cp ../sharedMemCpp/build/libSharedMemCpp.so sharedMem/dllSharedMemCpp_stubs.so
-
 dune build
 
 // TODO: unable to run sudo dune install and copy library into the /usr/...
-
 // Quick fix:
 dune install --prefix .
 sudo cp -r lib/sharedMem/ /home/fornadel/.opam/default/lib/
