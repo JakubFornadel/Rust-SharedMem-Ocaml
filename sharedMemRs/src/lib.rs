@@ -21,9 +21,6 @@ mod tests {
       let calculatedSum = shared_mem_sum(sharedMem, a, b);
       assert_eq!(expectedSum, calculatedSum);
 
-      // TODO: test returen shared_mem file name
-      //let testName = shared_mem_file_name(sharedMem);
-
       shared_mem_destroy(sharedMem)
     }
   }

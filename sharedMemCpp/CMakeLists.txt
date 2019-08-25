@@ -3,10 +3,12 @@ add_compile_options("-Wall" "-Werror")
 set( CMAKE_CXX_STANDARD 17 )
 
 add_library(SharedMemCpp SHARED src/SharedMem.cpp src/SharedMemCWrapper.cpp)
-target_include_directories(SharedMemCpp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_link_libraries(SharedMemCpp rt pthread)
+target_include_directories(SharedMemCpp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/include")
 
 add_library(SharedMemCpp_static STATIC src/SharedMem.cpp src/SharedMemCWrapper.cpp)
-target_include_directories(SharedMemCpp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_link_libraries(SharedMemCpp_static rt pthread)
+target_include_directories(SharedMemCpp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/include")
 set_target_properties(SharedMemCpp_static PROPERTIES OUTPUT_NAME SharedMemCpp)
 
 
@@ -26,7 +28,7 @@ install(TARGETS
    ARCHIVE DESTINATION lib
 )
 
-file(GLOB headers "${CMAKE_CURRENT_SOURCE_DIR}/include/*")
+file(GLOB headers "${CMAKE_CURRENT_SOURCE_DIR}/src/include/*")
 install(FILES ${headers} DESTINATION include)
 
 

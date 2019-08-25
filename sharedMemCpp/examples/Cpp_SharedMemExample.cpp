@@ -5,8 +5,6 @@
 int main(void) {
   SharedMem sharedMem("Hello-World.txt");
 
-  std::cout << "SharedMem file " << sharedMem.getFileName() << std::endl;
-
   int64_t a = 12;
   int64_t b = 6;
 
