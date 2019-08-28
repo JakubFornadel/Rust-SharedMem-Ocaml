@@ -1,4 +1,4 @@
-#include <SharedMem.hpp>
+#include "../src/include/SharedMem.hpp"
 #include <iostream>
 #include <string>
 
@@ -8,6 +8,7 @@ int main(void) {
   int64_t a = 12;
   int64_t b = 6;
 
+  //int64_t sum = a + b;
   int64_t sum = sharedMem.sum(a, b);
   std::cout << "Sum of " << a << " + " << b << " = " << sum << std::endl;
 }

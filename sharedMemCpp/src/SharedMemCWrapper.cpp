@@ -14,13 +14,14 @@ struct message {
   void *obj;
 };
 
-shared_mem_t* shared_mem_create(const char* idStr) {
+shared_mem_t* shared_mem_create(const char* idStr, bool createFlag) {
   shared_mem_t* sm;
   SharedMem*    smObj;
 
   sm = (typeof(sm))malloc(sizeof(*sm));
-  try { 
-    smObj = new SharedMem(idStr);
+  try {
+    SharedMem::ShmMode shmMode = (createFlag == true) ? SharedMem::ShmMode::CREATE : SharedMem::ShmMode::OPEN; 
+    smObj = new SharedMem(idStr, shmMode);
   } catch (...) {
     std::cerr << "shared_mem_create exception thrown" << std::endl; 
   }
@@ -56,88 +57,68 @@ int64_t shared_mem_sum(shared_mem_t* sm, int64_t a, int64_t b) {
   return result;
 }
 
-// bool shared_mem_push_task(shared_mem_t* sm, const message_t* msg) {
-//   SharedMem* smObj;
-//   SharedMem::Message* msgObj; 
+message_t* message_create(int64_t id, int64_t value) {
+  message_t*          msg;
+  SharedMem::Message* msgObj;
 
-//   if (sm == NULL || msg == NULL) {
-//     return false;
-//   }
-//   smObj = static_cast<SharedMem*>(sm->obj);
-//   msgObj = static_cast<SharedMem::Message*>(msg->obj);
-  
-//   try { 
-//     return smObj->pushTask(*msgObj);
-//   } catch (...) {
-//     std::cerr << "shared_mem_push_task exception thrown" << std::endl; 
-//     return false;
-//   }
-// }
+  msg = (typeof(msg))malloc(sizeof(*msg));
+  try { 
+      msgObj = new SharedMem::Message(id, value);
+  } catch (...) {
+    std::cerr << "shared_mem_create exception thrown" << std::endl; 
+  }
 
-// bool shared_mem_pop_task(shared_mem_t* sm, message_t* msg) {
-//   SharedMem* smObj;
-//   SharedMem::Message* msgObj; 
+  msg->obj = msgObj;
+  return msg;
+}
 
-//   if (sm == NULL || msg == NULL) {
-//     return false;
-//   }
-//   smObj = static_cast<SharedMem*>(sm->obj);
-//   msgObj = static_cast<SharedMem::Message*>(msg->obj);
-  
-//   try { 
-//     return smObj->popTask(*msgObj);
-//   } catch (...) {
-//     std::cerr << "shared_mem_pop_task exception thrown" << std::endl; 
-//     return false;
-//   }
-// }
+message_t* empty_message_create() {
+  message_t*          msg;
+  SharedMem::Message* msgObj;
 
-// bool shared_mem_push_result(shared_mem_t* sm, const message_t* msg) {
-//   SharedMem* smObj;
-//   SharedMem::Message* msgObj; 
+  msg = (typeof(msg))malloc(sizeof(*msg));
+  try { 
+      msgObj = new SharedMem::Message();
+  } catch (...) {
+    std::cerr << "shared_mem_create exception thrown" << std::endl; 
+  }
 
-//   if (sm == NULL || msg == NULL) {
-//     return false;
-//   }
-//   smObj = static_cast<SharedMem*>(sm->obj);
-//   msgObj = static_cast<SharedMem::Message*>(msg->obj);
-  
-//   try { 
-//     return smObj->pushResult(*msgObj);
-//   } catch (...) {
-//     std::cerr << "shared_mem_push_task exception thrown" << std::endl; 
-//     return false;
-//   }
-// }
+  msg->obj = msgObj;
+  return msg;
+}
 
-// bool shared_mem_pop_result(shared_mem_t* sm, message_t* msg) {
-//   SharedMem* smObj;
-//   SharedMem::Message* msgObj; 
+void message_print(message_t* msg) {
+  SharedMem::Message *msgObj;
+  if (msg == NULL) {
+    return;
+  }
 
-//   if (sm == NULL || msg == NULL) {
-//     return false;
-//   }
-//   smObj = static_cast<SharedMem*>(sm->obj);
-//   msgObj = static_cast<SharedMem::Message*>(msg->obj);
-  
-//   try { 
-//     return smObj->popResult(*msgObj);
-//   } catch (...) {
-//     std::cerr << "shared_mem_pop_result exception thrown" << std::endl; 
-//     return false;
-//   }
-// }
+  msgObj = static_cast<SharedMem::Message*>(msg->obj);
+  try { 
+    std::cout << "Msg <id, value>: <" << msgObj->getId() << ", " << msgObj->getValue() << ">" << std::endl;
+  } catch (...) {
+    std::cerr << "message_print exception thrown" << std::endl; 
+  }
+}
 
+void message_destroy(message_t* msg) {
+  if (msg == NULL) {
+    return;
+  }
 
-bool shared_mem_push_task(shared_mem_t* sm, const int* msg) {
+  delete static_cast<SharedMem::Message*>(msg->obj);
+  free(msg);
+}
+
+bool shared_mem_push_task(shared_mem_t* sm, const message_t* msg) {
   SharedMem* smObj;
-  const SharedMem::Message* msgObj; 
+  SharedMem::Message* msgObj; 
 
   if (sm == NULL || msg == NULL) {
     return false;
   }
   smObj = static_cast<SharedMem*>(sm->obj);
-  msgObj = static_cast<const SharedMem::Message*>(msg);
+  msgObj = static_cast<SharedMem::Message*>(msg->obj);
   
   try { 
     return smObj->pushTask(*msgObj);
@@ -147,7 +128,7 @@ bool shared_mem_push_task(shared_mem_t* sm, const int* msg) {
   }
 }
 
-bool shared_mem_pop_task(shared_mem_t* sm, int* msg) {
+bool shared_mem_pop_task(shared_mem_t* sm, message_t* msg) {
   SharedMem* smObj;
   SharedMem::Message* msgObj; 
 
@@ -155,7 +136,7 @@ bool shared_mem_pop_task(shared_mem_t* sm, int* msg) {
     return false;
   }
   smObj = static_cast<SharedMem*>(sm->obj);
-  msgObj = static_cast<SharedMem::Message*>(msg);
+  msgObj = static_cast<SharedMem::Message*>(msg->obj);
   
   try { 
     return smObj->popTask(*msgObj);
@@ -165,15 +146,15 @@ bool shared_mem_pop_task(shared_mem_t* sm, int* msg) {
   }
 }
 
-bool shared_mem_push_result(shared_mem_t* sm, const int* msg) {
+bool shared_mem_push_result(shared_mem_t* sm, const message_t* msg) {
   SharedMem* smObj;
-  const SharedMem::Message* msgObj; 
+  SharedMem::Message* msgObj; 
 
   if (sm == NULL || msg == NULL) {
     return false;
   }
   smObj = static_cast<SharedMem*>(sm->obj);
-  msgObj = static_cast<const SharedMem::Message*>(msg);
+  msgObj = static_cast<SharedMem::Message*>(msg->obj);
   
   try { 
     return smObj->pushResult(*msgObj);
@@ -183,7 +164,7 @@ bool shared_mem_push_result(shared_mem_t* sm, const int* msg) {
   }
 }
 
-bool shared_mem_pop_result(shared_mem_t* sm, int* msg) {
+bool shared_mem_pop_result(shared_mem_t* sm, message_t* msg) {
   SharedMem* smObj;
   SharedMem::Message* msgObj; 
 
@@ -191,7 +172,7 @@ bool shared_mem_pop_result(shared_mem_t* sm, int* msg) {
     return false;
   }
   smObj = static_cast<SharedMem*>(sm->obj);
-  msgObj = static_cast<SharedMem::Message*>(msg);
+  msgObj = static_cast<SharedMem::Message*>(msg->obj);
   
   try { 
     return smObj->popResult(*msgObj);

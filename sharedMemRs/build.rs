@@ -2,7 +2,6 @@ extern crate bindgen;
 
 use std::env;
 use std::path::PathBuf;
-use std::path::Path;
 
 fn main() {
     // Tell cargo to tell rustc to link the system bzip2
@@ -10,7 +9,7 @@ fn main() {
     println!("cargo:rustc-link-lib=SharedMemCpp");
     
     // TODO: Unable to make rustc-link-search work !!!
-    //println!("cargo:rustc-link-search=native=/usr/local/lib/");
+    //println!("cargo:rustc-link-search=/home/fornadel/workspace/Tezos/Rust-SharedMem-Ocaml/sharedMemCpp/build/libSharedMemCpp.so");
 
     // The bindgen::Builder is the main entry point
     // to bindgen, and lets you build up options for

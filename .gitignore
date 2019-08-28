@@ -10,6 +10,8 @@ sharedMemMl/lib/
 sharedMemMl/.merlin
 sharedMemMl/sharedMem.install
 sharedMemMl/sharedMem/sharedMem_c.install
+sharedMemMl/sharedMem/dllSharedMemCpp_stubs.so
+sharedMemMl/sharedMem/libSharedMemCpp_stubs.a
 
 node/target/
 node/Cargo.lock

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <inttypes.h>
-#include <SharedMem.h>
+#include <stdbool.h> // Fix unknown type name ‘bool’
+#include "../src/include/SharedMem.h"
 
 int main(void) {    
   shared_mem_t* sharedMem = shared_mem_create("Hello-World.txt");
