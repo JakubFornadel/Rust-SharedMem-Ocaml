@@ -18,23 +18,15 @@ fn main() {
   unsafe {
     // Creates shared memory
     let sharedMem: *mut sharedMemRs::shared_mem_t = sharedMemRs::shared_mem_create(sharedMemFile.as_ptr(), true /* create queues */);
-    
-    // Does some math inside library and check result
-    let a: i64 = 2;
-    let b: i64 = 3;
-    let expectedSum : i64 = a + b;
-    let calculatedSum = sharedMemRs::shared_mem_sum(sharedMem, a, b);
-    println!("Expected result: {} + {} = {}", a, b, expectedSum);
-    println!("Library-calculated result: {} + {} = {}", a, b, calculatedSum);
 
-    // Creates message
-    let msg: *mut sharedMemRs::message_t = sharedMemRs::message_create(0, 3);
-    let taskPushSuccess = sharedMemRs::shared_mem_push_task(sharedMem, msg);
-    println!("Task push Success: {} of message: ", taskPushSuccess);
-    sharedMemRs::message_print(msg);
-    sharedMemRs::message_destroy(msg);
+    // Creates task
+    let task = sharedMemRs::Task { id_ : 1, value_ : 2};
+    let taskPushSuccess = sharedMemRs::shared_mem_push_task(sharedMem, &task);
+    println!("Task push Success: {}, data pushed: {:?}", taskPushSuccess, task);
     
-
+    let mut result = sharedMemRs::Result { id_ : 0, value_ : 0};
+    let resultPopSuccess = sharedMemRs::shared_mem_pop_result(sharedMem, &result as *const sharedMemRs::Result as *mut sharedMemRs::Result);
+    println!("Result pop Success: {}, data popped: {:?}", resultPopSuccess, result);
     
     
     println!("Waiting for Ctrl-C...");

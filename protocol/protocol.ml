@@ -1,22 +1,27 @@
- 
 Printf.printf "Ocaml Example of calling C++ SharedMem library!\n"
 
 let sharedMem = SharedMem.shared_mem_create "TezosSharedMem" false(* open queues *);;
 
-let msgPush = SharedMem.message_create 7 9;;
-let pushSuccess = SharedMem.push_task sharedMem msgPush;;
+(* let task = SharedMem.task_create 2 4;;
+let pushSuccess = SharedMem.push_task sharedMem task;;
 Printf.printf "Push task Success: %B of message\n" (pushSuccess);;
-SharedMem.message_print msgPush;;
-SharedMem.message_destroy msgPush;;
+SharedMem.task_print task;;
+SharedMem.task_destroy task;; *)
 
-let msgPop = SharedMem.empty_message_create ();;
-SharedMem.message_print msgPop;;
-let popSuccess = SharedMem.pop_task sharedMem msgPop;;
+let taskPop = SharedMem.task_create 0 0;;
+(* Printf.printf "Default pop task data holder:\n";;
+SharedMem.task_print taskPop;; *)
+
+let popSuccess = SharedMem.pop_task sharedMem taskPop;;
 Printf.printf "Pop task Success: %B of message\n" (popSuccess);;
-SharedMem.message_print msgPop;;
-SharedMem.message_destroy msgPop;;
+Printf.printf "Popped task data:\n";;
+SharedMem.task_print taskPop;;
+SharedMem.task_destroy taskPop;;
 
-let sharedMemSum = SharedMem.shared_mem_sum sharedMem 6 7;;
-Printf.printf "%d\n" (sharedMemSum);;
+let result = SharedMem.result_create 3 4;;
+let pushResultSuccess = SharedMem.push_result sharedMem result;;
+Printf.printf "Push result Success: %B of message\n" (pushResultSuccess);;
+SharedMem.result_print result;;
+SharedMem.result_destroy result;;
 
 SharedMem.shared_mem_destroy sharedMem;;

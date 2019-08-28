@@ -1,7 +1,7 @@
 #include <memory>
 #include <iostream>
-//#include <SharedMem.hpp> // VS Code includes installed header instead of local one
 #include "include/SharedMem.hpp"
+#include "include/QueueItem.h"
 
 using namespace boost::interprocess;
 
@@ -44,7 +44,7 @@ void SharedMem::createQueues() {
       (create_only                //create
       ,tasks_queue_id_.c_str()    //name
       ,100                        //max message number
-      ,sizeof(SharedMem::Message) //max message size
+      ,sizeof(Task) //max message size
       );
 
   //Erase previous results message queue
@@ -56,7 +56,7 @@ void SharedMem::createQueues() {
       (create_only                //create
       ,results_queue_id_.c_str()  //name
       ,100                        //max message number
-      ,sizeof(SharedMem::Message) //max message size
+      ,sizeof(Result) //max message size
       );
 }
 
@@ -76,7 +76,7 @@ void SharedMem::openQueues() {
       );
 }
 
-bool SharedMem::pushTask(const Message& value) {
+bool SharedMem::pushTask(const Task& value) {
   try {
     tasks_queue_->send(&value, sizeof(value), 0/*priority*/);
   } catch (const interprocess_exception& err) {
@@ -87,7 +87,7 @@ bool SharedMem::pushTask(const Message& value) {
   return true;
 }
 
-bool SharedMem::popTask(Message& value) {
+bool SharedMem::popTask(Task& value) {
   unsigned int priority;
   message_queue::size_type recvd_size;
 
@@ -101,7 +101,7 @@ bool SharedMem::popTask(Message& value) {
   return true;
 }
 
-bool SharedMem::pushResult(const Message& value) {
+bool SharedMem::pushResult(const Result& value) {
   try {
     results_queue_->send(&value, sizeof(value), 0/*priority*/);
   } catch (const interprocess_exception& err) {
@@ -112,7 +112,7 @@ bool SharedMem::pushResult(const Message& value) {
   return true;
 }
   
-bool SharedMem::popResult(Message& value) {
+bool SharedMem::popResult(Result& value) {
   unsigned int priority;
   message_queue::size_type recvd_size;
 
@@ -128,12 +128,4 @@ bool SharedMem::popResult(Message& value) {
 
 int64_t SharedMem::sum(int64_t a, int64_t b) {
   return a + b;
-}
-
-int64_t SharedMem::MessageData::getId() {
-  return id_;
-}
-
-int64_t SharedMem::MessageData::getValue() {
-  return value_;
 }

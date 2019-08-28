@@ -48,6 +48,9 @@ apt-get install ocaml
 apt-get install opam
 opam init
 opam install dune 
+opam install core 
+opam install ctypes 
+opam install ctypes-foreign
 ```
 
 SharedMemMl building

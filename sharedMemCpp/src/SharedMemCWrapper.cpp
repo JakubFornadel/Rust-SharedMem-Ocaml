@@ -10,9 +10,9 @@ struct shared_mem {
   void *obj;
 };
 
-struct message {
-  void *obj;
-};
+// struct message {
+//   void *obj;
+// };
 
 shared_mem_t* shared_mem_create(const char* idStr, bool createFlag) {
   shared_mem_t* sm;
@@ -57,127 +57,109 @@ int64_t shared_mem_sum(shared_mem_t* sm, int64_t a, int64_t b) {
   return result;
 }
 
-message_t* message_create(int64_t id, int64_t value) {
-  message_t*          msg;
-  SharedMem::Message* msgObj;
-
-  msg = (typeof(msg))malloc(sizeof(*msg));
-  try { 
-      msgObj = new SharedMem::Message(id, value);
-  } catch (...) {
-    std::cerr << "shared_mem_create exception thrown" << std::endl; 
-  }
-
-  msg->obj = msgObj;
-  return msg;
-}
-
-message_t* empty_message_create() {
-  message_t*          msg;
-  SharedMem::Message* msgObj;
-
-  msg = (typeof(msg))malloc(sizeof(*msg));
-  try { 
-      msgObj = new SharedMem::Message();
-  } catch (...) {
-    std::cerr << "shared_mem_create exception thrown" << std::endl; 
-  }
-
-  msg->obj = msgObj;
-  return msg;
-}
-
-void message_print(message_t* msg) {
-  SharedMem::Message *msgObj;
-  if (msg == NULL) {
-    return;
-  }
-
-  msgObj = static_cast<SharedMem::Message*>(msg->obj);
-  try { 
-    std::cout << "Msg <id, value>: <" << msgObj->getId() << ", " << msgObj->getValue() << ">" << std::endl;
-  } catch (...) {
-    std::cerr << "message_print exception thrown" << std::endl; 
-  }
-}
-
-void message_destroy(message_t* msg) {
-  if (msg == NULL) {
-    return;
-  }
-
-  delete static_cast<SharedMem::Message*>(msg->obj);
-  free(msg);
-}
-
-bool shared_mem_push_task(shared_mem_t* sm, const message_t* msg) {
+bool shared_mem_push_task(shared_mem_t* sm, const Task* task) {
   SharedMem* smObj;
-  SharedMem::Message* msgObj; 
 
-  if (sm == NULL || msg == NULL) {
+  if (sm == NULL || task == NULL) {
     return false;
   }
   smObj = static_cast<SharedMem*>(sm->obj);
-  msgObj = static_cast<SharedMem::Message*>(msg->obj);
   
   try { 
-    return smObj->pushTask(*msgObj);
+    return smObj->pushTask(*task);
   } catch (...) {
     std::cerr << "shared_mem_push_task exception thrown" << std::endl; 
     return false;
   }
 }
 
-bool shared_mem_pop_task(shared_mem_t* sm, message_t* msg) {
+bool shared_mem_pop_task(shared_mem_t* sm, Task* task) {
   SharedMem* smObj;
-  SharedMem::Message* msgObj; 
 
-  if (sm == NULL || msg == NULL) {
+  if (sm == NULL || task == NULL) {
     return false;
   }
   smObj = static_cast<SharedMem*>(sm->obj);
-  msgObj = static_cast<SharedMem::Message*>(msg->obj);
   
   try { 
-    return smObj->popTask(*msgObj);
+    return smObj->popTask(*task);
   } catch (...) {
     std::cerr << "shared_mem_pop_task exception thrown" << std::endl; 
     return false;
   }
 }
 
-bool shared_mem_push_result(shared_mem_t* sm, const message_t* msg) {
+bool shared_mem_push_result(shared_mem_t* sm, const Result* result) {
   SharedMem* smObj;
-  SharedMem::Message* msgObj; 
 
-  if (sm == NULL || msg == NULL) {
+  if (sm == NULL || result == NULL) {
     return false;
   }
   smObj = static_cast<SharedMem*>(sm->obj);
-  msgObj = static_cast<SharedMem::Message*>(msg->obj);
   
   try { 
-    return smObj->pushResult(*msgObj);
+    return smObj->pushResult(*result);
   } catch (...) {
     std::cerr << "shared_mem_push_task exception thrown" << std::endl; 
     return false;
   }
 }
 
-bool shared_mem_pop_result(shared_mem_t* sm, message_t* msg) {
+bool shared_mem_pop_result(shared_mem_t* sm, Result* result) {
   SharedMem* smObj;
-  SharedMem::Message* msgObj; 
 
-  if (sm == NULL || msg == NULL) {
+  if (sm == NULL || result == NULL) {
     return false;
   }
   smObj = static_cast<SharedMem*>(sm->obj);
-  msgObj = static_cast<SharedMem::Message*>(msg->obj);
   
   try { 
-    return smObj->popResult(*msgObj);
+    return smObj->popResult(*result);
   } catch (...) {
     std::cerr << "shared_mem_pop_result exception thrown" << std::endl; 
     return false;
   }
+}
+
+
+// For Ocaml
+Task* task_create(int64_t id, int64_t value) {
+  Task* task;
+
+  try { 
+      task = new Task{id, value};
+  } catch (...) {
+    std::cerr << "task_create exception thrown" << std::endl; 
+  }
+
+  return task;
+}
+Result* result_create(int64_t id, int64_t value) {
+  return task_create(id, value);
+}
+
+void task_print(Task* task) {
+  if (task == NULL) {
+    return;
+  }
+
+  try { 
+    std::cout << "Msg <id, value>: <" << task->id_ << ", " << task->value_ << ">" << std::endl;
+  } catch (...) {
+    std::cerr << "task_print exception thrown" << std::endl; 
+  }
+}
+void result_print(Result* result) {
+  task_print(result);
+}
+
+void task_destroy(Task* task) {
+  if (task == NULL) {
+    return;
+  }
+
+  delete task;
+}
+void result_destroy(Result* result) {
+  task_destroy(result);
 }

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <inttypes.h>
-#include <stdbool.h> // Fix unknown type name ‘bool’
 #include "../src/include/SharedMem.h"
 
 int main(void) {    

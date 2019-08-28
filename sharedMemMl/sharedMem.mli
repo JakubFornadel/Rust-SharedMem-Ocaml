@@ -1,15 +1,19 @@
-type t
-val shared_mem_create : string -> bool -> t 
-val shared_mem_destroy : t -> unit 
-val shared_mem_sum : t -> int -> int -> int
+type shm
+val shared_mem_create : string -> bool -> shm
+val shared_mem_destroy : shm -> unit
+val shared_mem_sum : shm -> int -> int -> int
 
-type d
-val message_create : int -> int -> d
-val empty_message_create : unit -> d
-val message_destroy : d -> unit
-val message_print : d -> unit
+type task
+val task_create : int -> int -> task
+val task_destroy : task -> unit
+val task_print : task -> unit
 
-val push_task : t -> d -> bool
-val pop_task : t -> d -> bool
-val push_result : t -> d -> bool
-val pop_result : t -> d -> bool
+type result
+val result_create : int -> int -> result
+val result_destroy : result -> unit
+val result_print : result -> unit
+
+val push_task : shm -> task -> bool
+val pop_task : shm -> task -> bool
+val push_result : shm -> result -> bool
+val pop_result : shm -> result -> bool

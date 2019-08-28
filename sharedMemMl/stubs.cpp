@@ -22,59 +22,74 @@ CAMLprim value caml_shared_mem_sum(value sharedMem, value a, value b) {
   CAMLreturn(Val_long(sum));
 }
 
-CAMLprim value caml_message_create(value id, value val) {
+CAMLprim value caml_push_task(value sharedMem, value task) {
+  CAMLparam2(sharedMem, task);
+  bool success = shared_mem_push_task((shared_mem_t*) sharedMem, (Task*) task);
+
+  CAMLreturn(Val_bool(success));
+}
+
+CAMLprim value caml_pop_task(value sharedMem, value task) {
+  CAMLparam2(sharedMem, task);
+  bool success = shared_mem_pop_task((shared_mem_t*) sharedMem, (Task*) task);
+
+  CAMLreturn(Val_bool(success));
+}
+
+CAMLprim value caml_push_result(value sharedMem, value result) {
+  CAMLparam2(sharedMem, result);
+  bool success = shared_mem_push_result((shared_mem_t*) sharedMem, (Result*) result);
+
+  CAMLreturn(Val_bool(success));
+}
+
+CAMLprim value caml_pop_result(value sharedMem, value result) {
+  CAMLparam2(sharedMem, result);
+  bool success = shared_mem_pop_result((shared_mem_t*) sharedMem, (Result*) result);
+
+  CAMLreturn(Val_bool(success));
+}
+
+CAMLprim value caml_task_create(value id, value val) {
   CAMLparam2(id, val);
-  message_t* msg = message_create(Long_val(id), Long_val(val));
+  Task* task = task_create(Long_val(id), Long_val(val));
 
-  CAMLreturn((value) msg); 
+  CAMLreturn((value) task); 
 }
 
-CAMLprim value caml_empty_message_create() {
-  CAMLparam0();
-  message_t* msg = empty_message_create();
-
-  CAMLreturn((value) msg);
-}
-
-CAMLprim value caml_message_print(value msg) {
-  CAMLparam1(msg);
-  message_print((message_t*) msg);
+CAMLprim value caml_task_print(value task) {
+  CAMLparam1(task);
+  task_print((Task*) task);
 
   CAMLreturn(Val_unit);
 }
 
-CAMLprim value caml_message_destroy(value msg) {
-  CAMLparam1(msg);
-  message_t* msgPtr = (message_t*) msg;
-  message_destroy(msgPtr);
+CAMLprim value caml_task_destroy(value task) {
+  CAMLparam1(task);
+  Task* taskPtr = (Task*) task;
+  task_destroy(taskPtr);
 
   CAMLreturn(Val_unit);
 }
 
-CAMLprim value caml_push_task(value sharedMem, value msg) {
-  CAMLparam2(sharedMem, msg);
-  bool result = shared_mem_push_task((shared_mem_t*) sharedMem, (message_t*) msg);
+CAMLprim value caml_result_create(value id, value val) {
+  CAMLparam2(id, val);
+  Result* result = result_create(Long_val(id), Long_val(val));
 
-  CAMLreturn(Val_bool(result));
+  CAMLreturn((value) result); 
 }
 
-CAMLprim value caml_pop_task(value sharedMem, value msg) {
-  CAMLparam2(sharedMem, msg);
-  bool result = shared_mem_pop_task((shared_mem_t*) sharedMem, (message_t*) msg);
+CAMLprim value caml_result_print(value result) {
+  CAMLparam1(result);
+  result_print((Result*) result);
 
-  CAMLreturn(Val_bool(result));
+  CAMLreturn(Val_unit);
 }
 
-CAMLprim value caml_push_result(value sharedMem, value msg) {
-  CAMLparam2(sharedMem, msg);
-  bool result = shared_mem_push_result((shared_mem_t*) sharedMem, (message_t*) msg);
+CAMLprim value caml_result_destroy(value result) {
+  CAMLparam1(result);
+  Result* resultPtr = (Result*) result;
+  result_destroy(resultPtr);
 
-  CAMLreturn(Val_bool(result));
-}
-
-CAMLprim value caml_pop_result(value sharedMem, value msg) {
-  CAMLparam2(sharedMem, msg);
-  bool result = shared_mem_pop_result((shared_mem_t*) sharedMem, (message_t*) msg);
-
-  CAMLreturn(Val_bool(result));
+  CAMLreturn(Val_unit);
 }

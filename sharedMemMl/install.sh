@@ -1,7 +1,7 @@
 rm -rf _build/
 rm -rf lib/
 
-dune build
+dune build --profile release
 dune install --prefix .
 
 sudo cp -r ../sharedMemMl/lib/sharedMem/ ~/.opam/default/lib/
