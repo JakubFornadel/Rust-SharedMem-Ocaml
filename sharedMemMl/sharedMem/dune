@@ -2,5 +2,4 @@
   (name sharedMem_c)
   (public_name sharedMem_c)
   (preprocess no_preprocessing)
-  (c_library_flags :standard -lstdc++ -lpthread -lrt)
   (self_build_stubs_archive (SharedMemCpp)))

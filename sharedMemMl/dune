@@ -2,5 +2,5 @@
   (name sharedMem)
   (public_name sharedMem)
   (preprocess no_preprocessing)
-  (libraries sharedMem_c)
+  (libraries sharedMem_c core ctypes ctypes.foreign)
   (cxx_names stubs))

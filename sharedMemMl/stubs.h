@@ -6,18 +6,20 @@
 #include "../../../sharedMemCpp/src/include/SharedMem.h"
 
 extern "C" {
-  extern value caml_shared_mem_create(value idStr, value mode);
+  extern value caml_shared_mem_create(value idStr, value createFlag);
   extern value caml_shared_mem_destroy(value sharedMem);
 
-  extern value caml_message_create(value id, value val);
-  extern value caml_empty_message_create();
-  extern value caml_message_print(value msg);
-  extern value caml_message_destroy(value msg);
+  extern value caml_push_task(value sharedMem, value task);
+  extern value caml_pop_task(value sharedMem, value task);
+  extern value caml_push_result(value sharedMem, value result);
+  extern value caml_pop_result(value sharedMem, value result);
 
-  extern value caml_push_task(value sharedMem, value msg);
-  extern value caml_pop_task(value sharedMem, value msg);
-  extern value caml_push_result(value sharedMem, value msg);
-  extern value caml_pop_result(value sharedMem, value msg);
+  extern value caml_task_create(value id, value val);
+  extern value caml_task_print(value task);
+  extern value caml_task_destroy(value task);
+  extern value caml_result_create(value id, value val);
+  extern value caml_result_print(value result);
+  extern value caml_result_destroy(value result);
 
   extern value caml_shared_mem_sum(value sharedMem, value a, value b);
 }
