@@ -1,6 +1,6 @@
 # Rust-SharedMem-Ocaml
 Rust-SharedMem-Ocaml is POC implementation of two-way communication between multiple independent Rust and Ocaml processes. 
-For that purpose, it uses Cpp library with implemented shared memory and synchronized queue inside. 
+For that purpose, it uses Cpp library with implemented shared memory and synchronized queue inside as core of the solution. Then Rust & Ocaml wrappers(libraries) are created on top of this library, which are later used in applications. 
 
 Use git to clone the repository. 
 ```Shell 
