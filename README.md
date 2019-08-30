@@ -1,4 +1,7 @@
 # Rust-SharedMem-Ocaml
+Rust-SharedMem-Ocaml is POC implementation of two-way communication between multiple independent Rust and Ocaml processes. 
+For that purpose, it uses shared memory with synchronized queue inside. 
+
 Use git to clone the repository. 
 ```Shell 
 git clone https://github.com/JakubFornadel/Rust-SharedMem-Ocaml.git 
@@ -34,7 +37,7 @@ Once the environment is properly installed, run following scripts to update C++ 
 ```Shell 
 cd shareMemCpp/
 ./install.sh
-./setup.sh  // run only one time. It creates simlinks to Cpp library for Ocaml and Rust wrappers
+./setup.sh  // run only one time. It creates symlinks to Cpp library for Ocaml and Rust wrappers
 
 cd ../sharedMemRs/
 ./install.sh
