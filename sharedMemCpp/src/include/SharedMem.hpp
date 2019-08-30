@@ -6,6 +6,14 @@
 
 #include "QueueItem.h"
 
+/**
+ * @brief Shared Memory implemented through boost interprocess header library. Currently, it uses predefined 
+ *        concurrent queues, but can be changed for almost anything:
+ *        - manually synchronized cyclic buffer,
+ *        - managed shared memory,
+ *        - ...
+ *        - see sharedMemCpp/readme.txt to see more options
+ **/
 class SharedMem {
 public:
   enum class ShmMode {
@@ -16,6 +24,10 @@ public:
   SharedMem(const std::string& idStr, ShmMode mode);
   ~SharedMem();
   
+  /**
+   * Push & Pop methods are blocking - push waits until there is space in queue and pop until there is some data inside
+   * Timeouts or immediate return can be used also
+   **/
   bool pushTask(const Task& value);
   bool popTask(Task& value);
 

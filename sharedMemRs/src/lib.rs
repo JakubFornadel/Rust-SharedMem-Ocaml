@@ -21,20 +21,15 @@ mod tests {
       let calculatedSum = shared_mem_sum(sharedMem, a, b);
       assert_eq!(expectedSum, calculatedSum);
 
-      // let msgPush = message_create(0, 3);
-      // let msgPop = empty_message_create();
-      // message_print(msgPush);
-      // message_print(msgPop);
+      let task = Task {id_ : 1, value_ : 2};
+      let taskPushSuccess = shared_mem_push_task(sharedMem, &task);
 
-      // let pushResult = shared_mem_push_task(sharedMem, msgPush);
-      // assert_eq!(pushResult, true);
-      // let popResult = shared_mem_pop_task(sharedMem, msgPop);
-      // assert_eq!(popResult, true);
+      let result = Result {id_ : 0, value_ : 0};
+      assert_ne!(task.id_, result.id_);
 
-      // message_print(msgPop);
+      let resultPopSuccess = shared_mem_pop_task(sharedMem, &result as *const Result as *mut Result);
+      assert_eq!(task.id_, result.id_);
 
-      // message_destroy(msgPush);
-      // message_destroy(msgPop);
       shared_mem_destroy(sharedMem)
     }
   }

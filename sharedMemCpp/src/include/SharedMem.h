@@ -20,17 +20,16 @@ bool            shared_mem_pop_task(shared_mem_t* sm, Task* task);
 bool            shared_mem_push_result(shared_mem_t* sm, const Result* result);
 bool            shared_mem_pop_result(shared_mem_t* sm, Result* result);
 
+int64_t         shared_mem_sum(shared_mem_t* sm, int64_t a, int64_t b);
 
 // For Ocaml. 
-// TODO: is there any way how to directly create Ocaml wrapper fot C struct like in Rust???
+// TODO: is there any way how to directly create Ocaml representation of C struct like in Rust???
 Task*           task_create(int64_t id, int64_t value);
 void            task_print(Task* task);
 void            task_destroy(Task* task);
 Result*         result_create(int64_t id, int64_t value);
 void            result_print(Result* result);
 void            result_destroy(Result* result);
-
-int64_t         shared_mem_sum(shared_mem_t* sm, int64_t a, int64_t b);
 
 #ifdef __cplusplus
 }
