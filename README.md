@@ -96,8 +96,8 @@ ln -s $PWD/../sharedMemCpp/build/libSharedMemCpp.so sharedMem/dllSharedMemCpp_st
 dune build
 
 dune install --prefix .
-sudo cp -r lib/sharedMem/ /home/fornadel/.opam/default/lib/
-sudo cp -r lib/sharedMem_c/ /home/fornadel/.opam/default/lib/
+sudo cp -r lib/sharedMem/ ~/.opam/default/lib/
+sudo cp -r lib/sharedMem_c/ ~/.opam/default/lib/
 // Check https://github.com/ocaml/dune/blob/master/doc/usage.rst#finding-external-libraries - 2. worked for me, after that dune installed-libraries can see sharedMem package !
 
 // for quick install run:
