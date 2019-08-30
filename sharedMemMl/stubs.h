@@ -14,14 +14,15 @@ extern "C" {
   extern value caml_push_result(value sharedMem, value result);
   extern value caml_pop_result(value sharedMem, value result);
 
+  extern value caml_shared_mem_sum(value sharedMem, value a, value b);
+  
+  // TODO: these functions should be replaced by Ocaml representation of C structures, so they dont not need to be created inside lib
   extern value caml_task_create(value id, value val);
   extern value caml_task_print(value task);
   extern value caml_task_destroy(value task);
   extern value caml_result_create(value id, value val);
   extern value caml_result_print(value result);
   extern value caml_result_destroy(value result);
-
-  extern value caml_shared_mem_sum(value sharedMem, value a, value b);
 }
 
 #endif // _SHARED_MEM_STUBS_H_

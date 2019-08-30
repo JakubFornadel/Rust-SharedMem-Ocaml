@@ -1,9 +1,9 @@
-#include "../src/include/SharedMem.hpp"
 #include <iostream>
 #include <string>
+#include "../src/include/SharedMem.hpp"
 
 int main(void) {
-  SharedMem sharedMem("Hello-World.txt");
+  SharedMem sharedMem("Hello-World.txt", true);
 
   int64_t a = 12;
   int64_t b = 6;

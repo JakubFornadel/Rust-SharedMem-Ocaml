@@ -1,18 +1,10 @@
 #include <iostream>
-
-//#include <SharedMem.hpp> // VS Code includes installed header instead of local one
-//#include <SharedMem.h>   // VS Code includes installed header instead of local one
-
 #include "include/SharedMem.hpp"
 #include "include/SharedMem.h"
 
 struct shared_mem {
   void *obj;
 };
-
-// struct message {
-//   void *obj;
-// };
 
 shared_mem_t* shared_mem_create(const char* idStr, bool createFlag) {
   shared_mem_t* sm;

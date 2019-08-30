@@ -3,7 +3,7 @@
 #include "../src/include/SharedMem.h"
 
 int main(void) {    
-  shared_mem_t* sharedMem = shared_mem_create("Hello-World.txt");
+  shared_mem_t* sharedMem = shared_mem_create("Hello-World.txt", true);
 
   int64_t a = 12;
   int64_t b = 6;

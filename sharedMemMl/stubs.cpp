@@ -50,6 +50,7 @@ CAMLprim value caml_pop_result(value sharedMem, value result) {
   CAMLreturn(Val_bool(success));
 }
 
+// TODO: these functions should be replaced by Ocaml representation of C structures, so they dont not need to be created inside lib
 CAMLprim value caml_task_create(value id, value val) {
   CAMLparam2(id, val);
   Task* task = task_create(Long_val(id), Long_val(val));
